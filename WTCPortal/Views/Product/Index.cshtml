@@ -1,0 +1,77 @@
+﻿@model WTCPortal.Models.ProductLModel
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/Product/_LayoutProducts.cshtml";
+}
+@helper CustomRenderingOfColumn(WTCPortal.Models.Product color)
+{
+    if (color.Color == "")
+    {
+        @Html.Raw("No Colour");
+    }
+    else if (color.Color == null)
+    {
+        @Html.Raw("No Colour");
+    }
+    else if (color.Color == "Black")
+    {
+        @Html.Raw("Black");
+    }
+    else if (color.Color == "Blue")
+    {
+        @Html.Raw("Blue");
+    }
+    else if (color.Color == "Red")
+    {
+        @Html.Raw("Red");
+    }
+    else if (color.Color == "Silver")
+    {
+        @Html.Raw("Silver");
+    }
+    else if (color.Color == "White")
+    {
+        @Html.Raw("White");
+    }
+    else if (color.Color == "Yellow")
+    {
+        @Html.Raw("Yellow");
+    }
+    else if (color.Color == "Multi")
+    {
+        @Html.Raw("Multicoloured");
+    }
+}
+<br />
+<div class="form-inline" style="margin-left: 80%">
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("searchString", null, new { @class = "form-control mr-sm-0" })
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+    }
+</div>
+<div class="center align-items-center justify-content-center" style="margin-left: 46%">
+    <nav aria-label="breadcrumb">
+        <ol class="BBackground breadcrumb">
+            <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+            <li class="breadcrumb-item BCactive" aria-current="page">Products</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="center">
+    @Html.Grid(Model.ProductList).Columns(columns =>
+    {
+        columns.Add().Titled("Name").Filterable(true).Sanitized(false).Encoded(false).
+        RenderValueAs(viewmodel => Html.ActionLink(viewmodel.Name5,
+            "Details", new { ProductID = viewmodel.ProductID }, null)
+                .ToHtmlString());
+        columns.Add(model => model.ProductID).Titled("Product ID");
+        columns.Add(model => model.Name3).Titled("Vendor");
+        columns.Add(model => model.Color).Titled("Product Colour").RenderValueAs(model => CustomRenderingOfColumn(model));
+        columns.Add(model => model.ListPrice).Titled("Price (€)");
+        columns.Add(model => model.ProductNumber).Titled("Product Number");
+
+    }).WithPaging(8).WithMultipleFilters().Sortable()
+</div>

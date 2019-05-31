@@ -1,0 +1,157 @@
+﻿@model WTCPortal.Models.Store
+
+@{
+    ViewBag.Title = "Store Update";
+    Layout = "~/Views/Shared/Store/_LayoutStoreEdit.cshtml";
+}
+
+@using (Html.BeginForm("Edit", "Store", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <br />
+    <div class="center align-items-center justify-content-center" style="margin-left: 40%">
+        <nav aria-label="breadcrumb">
+            <ol class="BBackground breadcrumb">
+                <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a onclick="location.href='@Url.Action("Index", "Store")'">Stores</a></li>
+                <li class="breadcrumb-item" aria-current="page">@Html.ActionLink("Store Details", "Details", new { BusinessEntityID = Model.BusinessEntityID }, null)</li>
+                <li class="breadcrumb-item BCactive" aria-current="page">Edit Details</li>
+            </ol>
+        </nav>
+    </div>
+    <h4 class="center">Update @Html.DisplayFor(model => model.Name)</h4>
+
+    <div class="form-horizontal">
+        <hr />
+        <br />
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.BusinessEntityID)
+        @Html.HiddenFor(model => model.Demographics)
+        @Html.HiddenFor(model => model.rowguid)
+        @Html.HiddenFor(model => model.ModifiedDate)
+        @Html.HiddenFor(model => model.SalesPersonID)
+        @Html.HiddenFor(model => model.Customer.TerritoryID)
+        <div class="container" style="width: 100%">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="tab" role="tabpanel">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#Details" role="tab" data-toggle="tab">Store Details</a></li>
+                            <li role="presentation"><a href="#Address" role="tab" data-toggle="tab">Location</a></li>
+                        </ul>
+
+                        <div class="tab-content tabs">
+                            @*//////////////////////////////////////////Store Details Tab//////////////////////////////////////////////////////////////*@
+
+                            <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Details">
+                                <br />
+                                <h3 style="margin-left: 10%">Store Details</h3>
+                                <br />
+                                <br />
+                                <div class="form-horizontal align-items-center justify-content-center">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                <br />
+
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Customer.TerritoryID, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.Customer.TerritoryID, new SelectList(Model.Territorys, "Key", "Value"), new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Customer.TerritoryID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.AddressTypeID, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.BusinessEntityAddress.AddressTypeID, new SelectList(Model.AddressIding, "Key", "Value"), new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.AddressTypeID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                            </div>
+
+                            @*/////////////////////////////////////////////////ADDRESS TAB//////////////////////////////////////////////////////////*@
+
+                            <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Address">
+                                <br />
+                                <h3 style="margin-left: 10%">Location Details</h3>
+                                <br />
+                                <br />
+                                <div class="form-horizontal align-items-center justify-content-center">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.AddressLine1, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.AddressLine1, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.AddressLine2, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.AddressLine2, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.AddressLine2, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.City, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.City, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.City, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.StateProvinceID, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.BusinessEntityAddress.Address.StateProvinceID, new SelectList(Model.GetState, "Key", "Value"), "-Select State-", new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.StateProvinceID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.PostalCode, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.PostalCode, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <br />
+                                    <div style="margin-left: 900px">
+                                        <input type="submit" value="Save" class="btn btn-info" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

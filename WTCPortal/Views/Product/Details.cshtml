@@ -1,0 +1,103 @@
+﻿@model WTCPortal.Models.ProductLModel
+@{
+    ViewBag.Title = "Product Details";
+    Layout = "~/Views/Shared/Product/_LayoutProductsDetail.cshtml";
+}
+<br />
+<div class="center align-items-center justify-content-center" style="margin-left: 42%">
+    <nav aria-label="breadcrumb">
+        <ol class="BBackground breadcrumb">
+            <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a onclick="location.href='@Url.Action("Index", "Product")'">Products</a></li>
+            <li class="breadcrumb-item BCactive" aria-current="page">Product Details</li>
+        </ol>
+    </nav>
+</div>
+<h4 class="center">Details of the "@Html.DisplayFor(model => model.Product.Name5) (@Html.DisplayFor(model => model.Product.Name3))"</h4>
+<hr />
+<br />
+<br />
+<div class="container" style="width: 100%">
+    <div class="row">
+        <div class="col-md-10">
+            <div class="tab" role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#General" role="tab" data-toggle="tab">General Details</a></li>
+                    <li role="presentation"><a href="#Image" role="tab" data-toggle="tab">Product Image</a></li>
+                </ul>
+
+                <div class="tab-content tabs">
+
+                    <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="General">
+                        <br />
+                        <h3 class="center">General Details</h3>
+                        <br />
+                        <dl class=" center dl-horizontal">
+                            <dt>
+                                Product Name
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Product.Name5)
+                            </dd>
+                            <dt>
+                                Vendor
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Product.Name3)
+                            </dd>
+                            <dt>
+                                City
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Product.City)
+                                @Html.DisplayFor(model => model.Product.CountryRegionName)
+                            </dd>
+                            <dt>
+                                Product Number
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Product.ProductNumber)
+                            </dd>
+                            <dt>
+                                Standard Cost
+                            </dt>
+                            <dd>
+                                € @Html.DisplayFor(model => model.Product.StandardCost)
+                            </dd>
+                            <dt>
+                                Reorder Point(s)
+                            </dt>
+                            <dd>
+                                @Html.DisplayFor(model => model.Product.ReorderPoint)
+                            </dd>
+                        </dl>
+                        <br />
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Image">
+                        <br />
+                        <h3 class="center">Product Image</h3>
+                        <br />
+                        <br />
+                        <br />
+                        <dl class=" center dl-horizontal">
+                            <dd>
+                                @{
+                                    var base64 = Convert.ToBase64String(Model.Product.LargePhoto);
+                                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                                }
+                                <img src='@imgSrc' style="max-width:1000px; max-height:1000px" />
+                            </dd>
+                        </dl>
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

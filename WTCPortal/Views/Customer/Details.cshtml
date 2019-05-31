@@ -1,0 +1,166 @@
+﻿@model WTCPortal.Models.IndividualCustomer
+@{
+    ViewBag.Title = "Customer Details";
+    Layout = "~/Views/Shared/Customers/_LayoutCustomerDetails.cshtml";
+}
+<div>
+    <br />
+    <div class="center align-items-center justify-content-center" style="margin-left: 42%">
+        <nav aria-label="breadcrumb">
+            <ol class="BBackground breadcrumb">
+                <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a onclick="location.href='@Url.Action("Index", "Customer")'">Customers</a></li>
+                <li class="breadcrumb-item BCactive" aria-current="page">Customer Details</li>
+            </ol>
+        </nav>
+    </div>
+    <h4 class="center">Details of @Html.DisplayFor(model => model.FirstName)  @Html.DisplayFor(model => model.MiddleName)    @Html.DisplayFor(model => model.LastName)</h4>
+
+
+    <hr />
+    <br />
+    <br />
+    <div class="container" style="width: 100%">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="tab" role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#Personal" role="tab" data-toggle="tab">Personal</a></li>
+                        <li role="presentation"><a href="#Card" role="tab" data-toggle="tab">Card</a></li>
+                        <li role="presentation"><a href="#Address" role="tab" data-toggle="tab">Residential</a></li>
+                    </ul>
+
+                    <div class="tab-content tabs">
+
+                        @*
+                            //////////////////////////////////////Person Details TAB/////////////////////////////////////////////////
+                        *@
+
+                        <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Personal">
+                            <br />
+                            <h3 class="center">Personal Details</h3>
+                            <dl class=" center dl-horizontal">
+                                <br />
+                                <dt>
+                                    First Name
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.FirstName)
+                                </dd>
+                                <dt>
+                                    Middle Name
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.MiddleName)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.LastName)
+                                </dd>
+                                <br />
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Customer.AccountNumber)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.Customer.AccountNumber)
+                                </dd>
+                                <br />
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.EmailAddress.EmailAddress1)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.EmailAddress.EmailAddress1)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PersonPhone.PhoneNumber)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.PersonPhone.PhoneNumber) <br />
+                                    @Html.DisplayFor(model => model.PersonPhone.PhoneNumberType.Name)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.EmailPromotion)
+                                </dt>
+                                <dd>
+                                    @if (Model.EmailPromotion == 0)
+                                    {
+                                        @Html.Raw("off")
+                                    }
+                                    else if (Model.EmailPromotion == 1)
+                                    {
+                                        @Html.Raw("AdventureWorks")
+                                    }
+                                    else if (Model.EmailPromotion == 2)
+                                    {
+                                        @Html.Raw("AdventureWorks and partners")
+                                    }
+                            </dl>
+                            <br />
+                        </div>
+                        @*
+                            /////////////////////////////////////Details of Card TAB////////////////////////////////////////////////
+                        *@
+                        <div role="tabpanel" class="tab-pane fade" style="background-color: #80808061; width: 1000px" id="Card">
+                            <br />
+                            <h3 class="center">Card Details</h3>
+                            <dl class=" center dl-horizontal">
+                            <br />
+                            <br />
+                            <br />               
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PersonCreditCard.CreditCard.CardNumber)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.PersonCreditCard.CreditCard.CardNumber)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PersonCreditCard.CreditCard.CardType)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.PersonCreditCard.CreditCard.CardType)
+                                </dd>
+                                <dt>
+                                    Expiration Period
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.PersonCreditCard.CreditCard.ExpMonth) / @Html.DisplayFor(model => model.PersonCreditCard.CreditCard.ExpYear)
+                                </dd>
+                            </dl>
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        @*///////////////////////////////////////////ADDRESS TAB////////////////////////////////////////////////*@
+                        <div role="tabpanel" class="tab-pane fade" style="background-color: #80808061; width: 1000px" id="Address">
+                            <br />
+                            <h3 class="center">Residential Details</h3>
+                            <br />
+                            <br />
+                            <br />
+                            <dl class=" center dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.BusinessEntityAddress.Address.AddressLine1) (@Html.DisplayFor(model => model.BusinessEntityAddress.AddressType.Name))
+                                </dt>
+                                <dd>
+                                    <br />
+                                    @Html.DisplayFor(model => model.BusinessEntityAddress.AddressType.Name) <br />
+                                    @Html.DisplayFor(model => model.BusinessEntityAddress.Address.AddressLine1) <br />
+                                    @Html.DisplayFor(model => model.BusinessEntityAddress.Address.City)   <br />
+                                    @Html.DisplayFor(model => model.BusinessEntityAddress.Address.PostalCode)<br /><br />
+                                    @Html.DisplayFor(model => model.BusinessEntityAddress.Address.StateProvince.Name) <br />
+                                    @Html.DisplayFor(model => model.BusinessEntityAddress.Address.StateProvince.CountryRegion.Name) <br />
+                                </dd>
+                            </dl>
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

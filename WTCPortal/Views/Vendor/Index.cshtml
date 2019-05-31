@@ -1,0 +1,66 @@
+﻿@model IEnumerable<WTCPortal.Models.Vendor>
+
+@using GridMvc.Html
+
+@{
+    Layout = "~/Views/Shared/Vendor/_LayoutVendor.cshtml";
+
+}
+@helper CustomRenderingOfColumn(WTCPortal.Models.Vendor rating)
+{
+    if (rating.CreditRating == 1)
+    {
+        @Html.Raw("Superior");
+    }
+    else if (rating.CreditRating == 2)
+    {
+        @Html.Raw("Exellent");
+    }
+    else if (rating.CreditRating == 3)
+    {
+        @Html.Raw("Above Average");
+    }
+    else if (rating.CreditRating == 4)
+    {
+        @Html.Raw("Average");
+    }
+    else if (rating.CreditRating == 5)
+    {
+        @Html.Raw("Below Average");
+    }
+    else
+    {
+        @Html.Raw("Poor")
+    }
+}
+<br />
+<div class="form-inline" style="margin-left: 80%">
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("searchString", null, new { @class = "form-control mr-sm-0" })
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+    }
+</div>
+<div class="center align-items-center justify-content-center" style="margin-left: 46%">
+    <nav aria-label="breadcrumb">
+        <ol class="BBackground breadcrumb">
+            <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+            <li class="breadcrumb-item BCactive" aria-current="page">Vendors</li>
+        </ol>
+    </nav>
+</div>
+<div class="center">
+    @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add().Titled("Name").Filterable(true).Sanitized(false).Encoded(false).
+   RenderValueAs(model => Html.ActionLink(model.Name,
+      "Details", new { BusinessEntityID = model.BusinessEntityID }, null)
+       .ToHtmlString());
+    columns.Add(model => model.CreditRating).Titled("Credit Rating").RenderValueAs(model => CustomRenderingOfColumn(model));
+    columns.Add(model => model.AccountNumber).Titled("Account Number");
+    columns.Add().Titled("Address").Filterable(true).Sortable(true).RenderValueAs(model => model.BusinessEntityAddress.Address.AddressLine1 + ", " + model.BusinessEntityAddress.Address.City);
+    columns.Add(model => model.BusinessEntityAddress.Address.StateProvince.Name).Titled("State");
+
+}).WithPaging(8).Sortable().Filterable()
+
+</div>

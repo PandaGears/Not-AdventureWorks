@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WTCoro</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css">
+
+    @Styles.Render("~/Content/Main.css")
+    @Styles.Render("~/Content/Tabs.css")
+    @Styles.Render("~/Content/SideNav.css")
+    @Styles.Render("~/Content/Breadcrumbs.css")
+</head>
+
+<body class="back  image">
+    <header id="top">
+        <div class="shadow"><img class="logo" src="https://www.shareicon.net/download/2017/02/05/878214_global_512x512.png" /></div>
+    </header>
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>WTCoro</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <h4 class="col-lg-4">Product Details</h4>
+                <br />
+                <li>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Persons</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a onclick="location.href='@Url.Action("Index", "Customer")'">Customers</a>
+                        </li>
+                        <li>
+                            <a onclick="location.href='@Url.Action("Index", "Employee")'">Employees</a>
+                        </li>
+                        <li>
+                            <a onclick="location.href='@Url.Action("Index", "Vendor")'">Vendors</a>
+                        </li>
+                    </ul>
+                    <a href="#itemSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Inventory</a>
+                    <ul class="collapse list-unstyled" id="itemSubmenu">
+                        <li>
+                            <a onclick="location.href='@Url.Action("Index", "Store")'">Stores</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"> </a>
+                </li>
+                <li>
+                    <a onclick="location.href='@Url.Action("Index", "Product")'"><strong>Back To List</strong></a>
+                </li>
+                <li>
+                    <div>
+                        @if (Request.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("Logout", "User", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+                            }
+                        }
+                        else
+                        {
+                            <a onclick="location.href='@Url.Action("Login", "User")'">Sign In</a>
+                        }
+                    </div>
+                </li>
+            </ul>
+
+        </nav>
+    </div>
+
+    <!-- Page Content Holder -->
+
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $(this).toggleClass('active');
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //Initialize tooltips
+            $('.nav-tabs > li a[title]').tooltip();
+
+            //Wizard
+            $('a[data-toggle="tab"]').on('show.bs.tab', function (e) {
+
+                var $target = $(e.target);
+
+                if ($target.parent().hasClass('disabled')) {
+                    return false;
+                }
+            });
+
+            $(".next-step").click(function (e) {
+
+                var $active = $('.wizard .nav-tabs li.active');
+                $active.next().removeClass('disabled');
+                nextTab($active);
+
+            });
+            $(".prev-step").click(function (e) {
+
+                var $active = $('.wizard .nav-tabs li.active');
+                prevTab($active);
+
+            });
+        });
+
+        function nextTab(elem) {
+            $(elem).next().find('a[data-toggle="tab"]').click();
+        }
+        function prevTab(elem) {
+            $(elem).prev().find('a[data-toggle="tab"]').click();
+        }</script>
+</body>
+</html>

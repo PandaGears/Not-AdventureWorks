@@ -1,0 +1,281 @@
+﻿@model WTCPortal.Models.Employee
+
+@{
+    ViewBag.Title =  "Employee Details";
+    Layout = "~/Views/Shared/Employee/_LayoutEmployeeDetails.cshtml";
+}
+@*
+    //////////////////////////////////////BreadCrumbs/////////////////////////////////////////////////
+*@
+<br />
+<div class="center align-items-center justify-content-center" style="margin-left: 42%">
+    <nav aria-label="breadcrumb">
+        <ol class="BBackground breadcrumb">
+            <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a onclick="location.href='@Url.Action("Index", "Employee")'">Employees</a></li>
+            <li class="breadcrumb-item BCactive" aria-current="page">Employee Details</li>
+        </ol>
+    </nav>
+</div>
+<div>
+    <h4 class="center">
+        Details of @Html.DisplayFor(model => model.FirstName) @Html.DisplayFor(model => model.MiddleName) @Html.DisplayFor(model => model.LastName)   (
+        @if (String.Equals(Model.PersonType, "SP"))
+        {
+            @Html.Raw("Sales  Representative")
+        }
+        else if (String.Equals(Model.PersonType, "EM"))
+        {
+            @Html.Raw("Employee")
+        }
+        )
+    </h4>
+
+
+    <hr />
+    <br />
+    <br />
+    @*
+        //////////////////////////////////////Tab Menu/////////////////////////////////////////////////
+    *@
+    <div class="container" style="width: 100%">
+        <div class="row">
+            <div class="col-md-10">
+                <div class="tab" role="tabpanel">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#Personal" role="tab" data-toggle="tab">Personal</a></li>
+                        <li role="presentation"><a href="#Professional" role="tab" data-toggle="tab">Professional</a></li>
+                        <li role="presentation"><a href="#Address" role="tab" data-toggle="tab">Residential</a></li>
+                    </ul>
+
+                    <div class="tab-content tabs">
+
+
+                        @*
+                            //////////////////////////////////////Person Details TAB/////////////////////////////////////////////////
+                        *@
+                        <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Personal">
+                            <br />
+                            <h3 class="center">Personal Details</h3>
+                            <dl class=" center dl-horizontal">
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.FirstName)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.FirstName)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.MiddleName)
+                                </dt>
+                                <dd>
+                                    @Html.DisplayFor(model => model.MiddleName)
+                                </dd>
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.LastName)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.LastName)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.NationalIDNumber)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.NationalIDNumber)
+                                </dd>
+
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.BirthDate)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.BirthDate)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.MaritalStatus)
+                                </dt>
+
+                                <dd>
+                                    @if (String.Equals(Model.Gender, "S"))
+                                    {
+                                        @Html.Raw("Single")
+                                    }
+                                    else if (String.Equals(Model.Gender, "M"))
+                                    {
+                                        @Html.Raw("Married")
+                                    }
+                                    else if (String.Equals(Model.Gender, "D"))
+                                    {
+                                        @Html.Raw("Divorced")
+                                    }
+                                    else if (String.Equals(Model.Gender, "W"))
+                                    {
+                                        @Html.Raw("Widowed/Widowered")
+                                    }
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.Gender)
+                                </dt>
+
+                                <dd>
+                                    @if (String.Equals(Model.Gender, "F"))
+                                    {
+                                        @Html.Raw("Female")
+                                    }
+                                    else if (String.Equals(Model.Gender, "M"))
+                                    {
+                                        @Html.Raw("Male")
+                                    }
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.EmailAddress.EmailAddress1)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.EmailAddress.EmailAddress1)
+                                </dd>
+
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.EmailPromotion)
+                                </dt>
+
+                                <dd>
+                                    @if (Model.EmailPromotion == 0)
+                                    {
+                                        @Html.Raw("off")
+                                    }
+                                    else if (Model.EmailPromotion == 1)
+                                    {
+                                        @Html.Raw("AdventureWorks")
+                                    }
+                                    else if (Model.EmailPromotion == 2)
+                                    {
+                                        @Html.Raw("AdventureWorks and partners")
+                                    }
+                                </dd>
+
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.PersonPhone.PhoneNumber)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.PersonPhone.PhoneNumber) <br />
+                                    @Html.DisplayFor(model => model.PersonPhone.PhoneNumberType.Name)
+                                </dd>
+                            </dl>
+                                <br />
+                        </div>
+                        @*
+                            /////////////////////////////////////Details of employment TAB////////////////////////////////////////////////
+                        *@
+                        <div role="tabpanel" class="tab-pane fade" style="background-color: #80808061; width: 1000px" id="Professional">
+                            <br />
+                            <h3 class="center">Professional</h3>
+                            <dl class=" center dl-horizontal">
+                                <br />
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.JobTitle)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.JobTitle)
+                                </dd>
+
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.EmployeeDepartmentHistory.Department.Name)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.EmployeeDepartmentHistory.Department.Name) <br />
+                                    @Html.DisplayFor(model => model.EmployeeDepartmentHistory.Department.GroupName)
+                                </dd>
+                                
+
+
+                                <br />
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.HireDate)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.HireDate)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.SalariedFlag)
+                                </dt>
+
+                                <dd>
+                                    @if (Model.SalariedFlag)
+                                    {
+                                        @Html.Raw("No")
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("Yes")
+                                    }
+                                </dd>
+
+                                <br />
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.VacationHours)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.VacationHours)
+                                </dd>
+
+                                <dt>
+                                    @Html.DisplayNameFor(model => model.SickLeaveHours)
+                                </dt>
+
+                                <dd>
+                                    @Html.DisplayFor(model => model.SickLeaveHours)
+                                </dd>
+                            </dl>
+                            <br />
+                        </div>
+                        @*
+                            //////////////////////////////////////////Address TAB/////////////////////////////////
+                        *@
+                        <div role="tabpanel" class="tab-pane fade" style="background-color: #80808061; width: 1000px" id="Address">
+                            <br />
+                            <h3 class="center">Residential Details</h3>
+
+                                <br />
+                                <br />
+                                <dl class=" center dl-horizontal">
+                                    <dt>
+                                        @Html.DisplayNameFor(model => model.BusinessEntityAddress.Address.AddressLine1) (@Html.DisplayFor(model => model.BusinessEntityAddress.AddressType.Name))
+                                    </dt>
+
+                                    <dd>
+                                        @Html.DisplayFor(model => model.BusinessEntityAddress.Address.AddressLine1) <br />
+                                        @Html.DisplayFor(model => model.BusinessEntityAddress.Address.City) <br />
+                                        @Html.DisplayFor(model => model.BusinessEntityAddress.Address.PostalCode) <br /><br />
+                                        @Html.DisplayFor(model => model.BusinessEntityAddress.Address.StateProvince.Name) <br />
+                                        @Html.DisplayFor(model => model.BusinessEntityAddress.Address.StateProvince.CountryRegion.Name) <br />
+                                    </dd>
+                                </dl>
+                                <br />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

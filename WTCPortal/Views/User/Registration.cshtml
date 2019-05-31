@@ -1,0 +1,137 @@
+﻿@model WTCPortal.Models.User
+
+@{
+    ViewBag.Title = "Registration";
+    Layout = "~/Views/Shared/_LayoutRegister.cshtml";
+}
+
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+{
+    if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success">
+            <strong>Success!</strong>@ViewBag.Message
+        </div>
+    }
+}
+else
+{
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+<h1 class="center">Register</h1>
+        <hr />
+
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="form-horizontal login-card" style="margin-left: 35%; width: 600px">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.BusinessEntityID)
+            @Html.HiddenFor(model => model.NameStyle)
+            @Html.HiddenFor(model => model.Suffix)
+            @Html.HiddenFor(model => model.EmailPromotion)
+            @Html.HiddenFor(model => model.rowguid)
+            @Html.HiddenFor(model => model.ModifiedDate)
+
+            <div class="row align-items-center justify-content-center">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PersonType, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.PersonType, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PersonType, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <div class="row align-items-center justify-content-center">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MiddleName, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+           
+            <div class="form-group" style="margin-left: 5%">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-10" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control-email" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+                <div class="form-group" style="margin-left: 5%">
+                    @Html.LabelFor(model => model.EmailAddress.EmailAddress1, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.EmailAddress.EmailAddress1, new { htmlAttributes = new { @class = "form-control-email" } })
+                        @Html.ValidationMessageFor(model => model.EmailAddress.EmailAddress1, "", new { @class = "text-danger" })
+                        @Html.ValidationMessage("EmailExist", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            <div class="row align-items-center justify-content-center">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password1, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password1, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ConfirmPassword1, htmlAttributes: new { @class = "control-label col-md-10" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ConfirmPassword1, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ConfirmPassword1, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            <div class="center login-help">
+                <h6>
+                @Html.ActionLink("Already Registered? Login", "Login")
+                    </h6>
+            </div>
+                        <input type="submit" value="Register" class="login-submit" />
+                </div>
+
+            </div>
+
+
+            if (ViewBag.Message != null)
+            {
+            <div class="alert alert-danger">
+                <strong>Error!</strong>@ViewBag.Message
+            </div>
+            }
+            }
+            }
+
+
+
+
+            @section Scripts{
+                @Scripts.Render("~/bundles/jqueryval")
+                <script src="~/Scripts/jquery.validate.min.js"></script>
+                <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+            }

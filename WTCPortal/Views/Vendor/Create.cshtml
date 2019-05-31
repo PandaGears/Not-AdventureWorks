@@ -1,0 +1,198 @@
+﻿@model WTCPortal.Models.Vendor
+
+@{
+    ViewBag.Title = "Vendor Creation";
+    Layout = "~/Views/Shared/Vendor/_LayoutVendorCreate.cshtml";
+}
+
+<br />
+<div class="center align-items-center justify-content-center" style="margin-left: 42%">
+    <nav aria-label="breadcrumb">
+        <ol class="BBackground breadcrumb">
+            <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a onclick="location.href='@Url.Action("Index", "Vendor")'">Vendors</a></li>
+            <li class="breadcrumb-item BCactive" aria-current="page">Vendor Creation</li>
+        </ol>
+    </nav>
+</div>
+<hr />
+<br />
+<br />
+@using (Html.BeginForm("Create", "Vendor", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.PreferredVendorStatus)
+        @Html.HiddenFor(model => model.ActiveFlag)
+
+
+        <div class="container" style="width: 100%">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="tab" role="tabpanel">
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#Name" role="tab" data-toggle="tab">Vendor Name</a></li>
+                            <li role="presentation"><a href="#Business" role="tab" data-toggle="tab">Business Details</a></li>
+                            <li role="presentation"><a href="#Address" role="tab" data-toggle="tab">Location</a></li>
+                        </ul>
+                        <div class="tab-content tabs">
+
+                            <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Name">
+                                <br />
+                                <h3 style="margin-left: 10%">Vendor Name</h3>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <div class="form-horizontal align-items-center justify-content-center">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+
+
+
+
+                            <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Business">
+                                <br />
+                                <h3 style="margin-left: 10%">Business Details</h3>
+                                <br />
+                                <br />
+                                <br />
+                                <div class="form-horizontal align-items-center justify-content-center">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.AccountNumber, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.AccountNumber, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.AccountNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.CreditRating, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.CreditRating, new SelectList(Model.CredRate, "Key", "Value"), new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.CreditRating, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                <br />
+
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.PurchasingWebServiceURL, htmlAttributes: new { @class = "control-label col-md-13" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.PurchasingWebServiceURL, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.PurchasingWebServiceURL, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                                <br />
+                            </div>
+
+
+                            <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Address">
+                                <br />
+                                <h3 style="margin-left: 10%">Location Details</h3>
+                                <br />
+                                <br />
+                                <div class="form-horizontal align-items-center justify-content-center">
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.AddressTypeID, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.DropDownListFor(model => model.BusinessEntityAddress.AddressTypeID, new SelectList(Model.AddressIding, "Key", "Value"), "-Select Option-", new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.AddressTypeID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.AddressLine1, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.AddressLine1, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.AddressLine1, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br />
+
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.AddressLine2, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.AddressLine2, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.AddressLine2, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.City, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.City, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.City, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <br />
+                                    <div class="row align-items-center justify-content-center">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.StateProvinceID, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.StateProvinceID, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.StateProvinceID, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.BusinessEntityAddress.Address.PostalCode, htmlAttributes: new { @class = "control-label col-md-10" })
+                                            <div class="col-md-10">
+                                                @Html.EditorFor(model => model.BusinessEntityAddress.Address.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.BusinessEntityAddress.Address.PostalCode, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+                                <div style="margin-left: 900px">
+                                    <input type="submit" value="Create" class="btn btn-info" />
+                                </div>
+                                    <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

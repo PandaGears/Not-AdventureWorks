@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Users";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - WTCoro</title>
+
+    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/base/jquery-ui.css">
+    @Styles.Render("~/Content/Main.css")
+    @Styles.Render("~/Content/Tabs.css")
+    @Styles.Render("~/Content/SideNav.css")
+    @Styles.Render("~/Content/Paginations.css")
+    @Styles.Render("~/Content/Breadcrumbs.css")
+</head>
+<body class="back  image">
+    <header id="top" class="sticky-top">
+        <div class="shadow"><img class="logo" src="https://www.shareicon.net/download/2017/02/05/878214_global_512x512.png" /></div>
+    </header>
+    <nav class="navbar navbar-expand-lg navbar-dark bggrey" style="width: 100%; position:fixed">
+        <a class="navbar-brand" onclick="location.href='@Url.Action("Index", "Person")'">Home</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link navierer dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Create New
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("Create", "Customer")'">Customer</a>
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("Create", "Employee")'">Employee</a>
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("Create", "Store")'">Store</a>
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("Create", "Vendor")'">Vendor</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link navierer dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Filter Person
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("Index", "Person")'">All</a>
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("Index", "Employee")'">Employees</a>
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("Index", "Customers")'">Stores</a>
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("CIndex", "Customers")'">Customers</a>
+                        <a class="navie-dropper dropdown-item" onclick="location.href='@Url.Action("Index", "Vendor")'">Vendors</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br />
+    <br />
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p class="row align-items-center justify-content-center">&copy; @DateTime.Now.Year - WTCoro</p>
+        </footer>
+    </div>
+
+    <div class="sidenav">
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="~/js/site.min.js" asp-append-version="true"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js">
+        $(function () {
+            $("#tabs").tabs();
+        });</script>
+</body>
+</html>

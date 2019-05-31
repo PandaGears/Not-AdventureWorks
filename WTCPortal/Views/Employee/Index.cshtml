@@ -1,0 +1,38 @@
+﻿@model IEnumerable<WTCPortal.Models.Employee>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Employee/_LayoutEmployee.cshtml";
+}
+@using GridMvc.Html
+
+<br />
+<div class="form-inline" style="margin-left: 80%">
+    @using (Html.BeginForm())
+    {
+        @Html.TextBox("searchString", null, new { @class = "form-control mr-sm-0" })
+        <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+    }
+</div>
+<div class="center align-items-center justify-content-center" style="margin-left: 46%">
+    <nav aria-label="breadcrumb">
+        <ol class="BBackground breadcrumb">
+            <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+            <li class="breadcrumb-item BCactive" aria-current="page">Employees</li>
+        </ol>
+    </nav>
+</div>
+<div class="center">
+    @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add().Titled("Full Name").Filterable(true).Sanitized(false).Encoded(false).
+        RenderValueAs(viewmodel => Html.ActionLink(viewmodel.FirstName + " " + viewmodel.LastName,
+            "Details", new { BusinessEntityID = viewmodel.BusinessEntityID }, null)
+                .ToHtmlString());
+    columns.Add(viewmodel => viewmodel.EmailAddress.EmailAddress1).Titled("Email Address");
+    columns.Add(viewmodel => viewmodel.PersonPhone.PhoneNumber).Titled("Phone Number");
+    columns.Add().Titled("Address").Filterable(true).Sortable(true).RenderValueAs(model => model.BusinessEntityAddress.Address.AddressLine1 + "," + model.BusinessEntityAddress.Address.City);
+    columns.Add(model => model.BusinessEntityAddress.Address.StateProvince.Name).Titled("State");
+}).WithPaging(8).Sortable()
+
+</div>

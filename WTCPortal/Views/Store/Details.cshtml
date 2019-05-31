@@ -1,0 +1,162 @@
+﻿@model WTCPortal.Models.Store
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Store Details";
+    Layout = "~/Views/Shared/Store/_LayoutStoreDetails.cshtml";
+}
+<br />
+<div class="center align-items-center justify-content-center" style="margin-left: 42%">
+    <nav aria-label="breadcrumb">
+        <ol class="BBackground breadcrumb">
+            <li class="breadcrumb-item"><a onclick="location.href='@Url.Action("Index", "Home")'">Home</a></li>
+            <li class="breadcrumb-item" aria-current="page"><a onclick="location.href='@Url.Action("Index", "Store")'">stores</a></li>
+            <li class="breadcrumb-item BCactive" aria-current="page">Store Details</li>
+        </ol>
+    </nav>
+</div>
+<h4 class="center">Details of "@Html.DisplayFor(model => model.Name)"</h4>
+<hr />
+<br />
+<br />
+
+<div class="container" style="width: 100%">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="tab" role="tabpanel">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#Details" role="tab" data-toggle="tab">Basic Details</a></li>
+                    <li role="presentation"><a href="#Other" role="tab" data-toggle="tab">Other</a></li>
+                    <li role="presentation"><a href="#Rep" role="tab" data-toggle="tab">Store Rep</a></li>
+                </ul>
+
+                <div class="tab-content tabs">
+
+
+                    <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Details">
+                        <br />
+                        <h3 class="center">Basic Details</h3>
+                        <dl class=" center dl-horizontal">
+                            <br />
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Name)
+                            </dd>
+
+                            <br />
+                            <dt>
+                                Established in:
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.StoreDemographics.YearOpened)
+                            </dd>
+
+                            <br />
+                            <dt>
+                                @Html.DisplayNameFor(model => model.StoreDemographics.BusinessType)
+                            </dt>
+
+                            <dd>
+                                @if (String.Equals(Model.StoreDemographics.BusinessType, "BM"))
+                                {
+                                    @Html.Raw("Bike manufacturer")
+                                }
+                                else if (String.Equals(Model.StoreDemographics.BusinessType, "OS"))
+                                {
+                                    @Html.Raw("Warehouse")
+                                }
+                                else if (String.Equals(Model.StoreDemographics.BusinessType, "BS"))
+                                {
+                                    @Html.Raw("Speciality Bike Shop")
+                                }
+                            </dd>
+                        </dl>
+                        <br /> 
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1000px" id="Other">
+                        <br />
+                        <h3 class="center">Other Details</h3>
+                        <dl class="center dl-horizontal">
+                            <br />
+                            <dt>
+                                @Html.DisplayNameFor(model => model.StoreDemographics.BankName)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.StoreDemographics.BankName)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Customer.AccountNumber)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.Customer.AccountNumber)
+                            </dd>
+
+                            <br />
+                            <dt>
+                                @Html.DisplayNameFor(model => model.StoreDemographics.Brands)
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.StoreDemographics.Brands)
+                            </dd>
+
+                            <br />
+                            <dt>
+                                @Html.Raw("Adventure Works Representative")
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.SalesPerson.FirstName) @Html.DisplayFor(model => model.SalesPerson.MiddleName) @Html.DisplayFor(model => model.SalesPerson.LastName) <br />
+                                @Html.DisplayFor(model => model.SalesPerson.EmailAddress.EmailAddress1) <br />
+                                @Html.DisplayFor(model => model.SalesPerson.PersonPhone.PhoneNumber) (@Html.DisplayFor(model => model.SalesPerson.PersonPhone.PhoneNumberType.Name))
+
+                            </dd>
+                            <br />
+                            <dt>
+                                @Html.DisplayNameFor(model => model.BusinessEntityAddress.Address.AddressLine1) (@Html.DisplayFor(model => model.BusinessEntityAddress.AddressType.Name))
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.BusinessEntityAddress.AddressType.Name) <br />
+                                @Html.DisplayFor(model => model.BusinessEntityAddress.Address.AddressLine1) <br />
+                                @Html.DisplayFor(model => model.BusinessEntityAddress.Address.City)     <br />
+                                @Html.DisplayFor(model => model.BusinessEntityAddress.Address.PostalCode)<br /><br />
+                                @Html.DisplayFor(model => model.BusinessEntityAddress.Address.StateProvince.Name) <br />
+                                @Html.DisplayFor(model => model.BusinessEntityAddress.Address.StateProvince.CountryRegion.Name)
+                            </dd>
+                        </dl>
+                        <br />
+                    </div>
+
+                    @*HTMLGRID IN A TAB FOR THIS ONE*@
+                    <div role="tabpanel" class="tab-pane fade in" style="background-color: #80808061; width: 1250px" id="Rep">
+                        <br />
+                        <h3 class="center">Store Representative Details</h3>
+                        <br />
+                        <div class="center" style="width: 150% !important; margin-left: -25%">
+                            @Html.Grid(Model.StoreReps).Columns(columns =>
+                    {
+                       columns.Add().Titled("Full Name").RenderValueAs(viewmodel => viewmodel.FirstName + " " + viewmodel.MiddleName + " " + viewmodel.LastName);
+                       columns.Add(viewmodel => viewmodel.BusinessEntityContact.ContactType.Name).Titled("Contact Type");
+                       columns.Add(viewmodel => viewmodel.EmailAddress.EmailAddress1).Titled("Email Address");
+                       columns.Add(viewmodel => viewmodel.PersonPhone.PhoneNumber).Titled("Phone Number");
+                       columns.Add(viewmodel => viewmodel.PersonPhone.PhoneNumberType.Name).Titled("Phone Type");
+                    })
+                        </div>
+                        <br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
