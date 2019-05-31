@@ -1,0 +1,8 @@
+﻿.BBackground {
+    background: #a0a0a0;
+}
+.BCactive {
+    background-color: none !important;
+    /* opacity: 0.3; */
+    color: #fff !important;
+}

@@ -1,0 +1,24 @@
+﻿.page-link {
+    position: relative;
+    display: block;
+    padding: .5rem .75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #fff;
+    background-color: #a7a7a700;
+    border: 1px solid #dee2e6;
+}
+
+    .page-link:hover {
+        z-index: 2;
+        color: #fff;
+        text-decoration: none;
+        background-color: #47474854;
+        border-color: #dee2e6;
+    }
+.page-item.active .page-link {
+    z-index: 1;
+    color: #fff;
+    background-color: #117a8b;
+    border-color: #106c7b;
+}
